@@ -20,11 +20,18 @@ class Server():
                 self.connections.remove
             else:
                 data = str(data, 'utf-8')
-                jsonRead(data)
-                #print(data)
 
-
-            c.close
+                #Tratamento o JSON
+                if data == '1':
+                    print('caso 1')
+                
+                #Desconecar
+                elif data == '2':
+                    print('caso 2')
+                
+                else:
+                    print('comando não existe')
+                    c.close
             break
     
     def run(self):
@@ -34,19 +41,7 @@ class Server():
             cThread.daemon = True 
             cThread.start() 
             self.connections.append(c) 
-            print("C",str(a[0])," ",str(a[1])) 
-
-    def jsonRead(self, x):
-        #Alterar o JSON
-        if x == '1':
-            print('caso 1')
-        
-        #Desconecar
-        elif == '2':
-            print('caso 2')
-        
-        else:
-            print('comando não existe')
+            print("C",str(a[0])," ",str(a[1]))
 
 server = Server()
 server.run()
