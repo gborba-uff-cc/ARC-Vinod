@@ -7,9 +7,11 @@ with open("route.json", "r") as read_file:
 class Server():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
     connections = []
-    print("Server pronto...")
+    #print("Server pronto...")
     def __init__(self): 
-        self.sock.bind((route["ip"],route["porta"])) 
+        #self.sock.bind((route["ip"],route["porta"])) 
+        self.sock.bind(('127.0.0.3',route["porta"]))
+        print("Server pronto...") 
         self.sock.listen(1) 
 
     def handler(self, c, a):
@@ -23,11 +25,15 @@ class Server():
 
                 #Tratamento o JSON
                 if data == '1':
+                    import c as client
                     print('caso 1')
+                    client.send('2', '127.0.0.3')
+                    c.close
                 
                 #Desconecar
                 elif data == '2':
                     print('caso 2')
+                    c.close
                 
                 else:
                     print('comando não existe')
