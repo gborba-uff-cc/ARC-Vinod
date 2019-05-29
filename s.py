@@ -7,24 +7,49 @@ with open("route.json", "r") as read_file:
 class Server():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
     connections = []
-    print("Server pronto...")
+    #print("Server pronto...")
     def __init__(self): 
-        self.sock.bind((route["ip"],route["porta"])) 
+        #self.sock.bind((route["ip"],route["porta"])) 
+        self.sock.bind(('127.0.0.4',route["porta"]))
+        print("Server pronto...") 
         self.sock.listen(1) 
 
     def handler(self, c, a):
         while True:
-            data = c.recv(1024)
-            if not data:
+            cod, info = [str(i) for i in c.recv(2048).decode('utf-8').split('\n')]
+            
+            if not cod:
                 print("D",str(a[0])," ",str(a[1]))
                 self.connections.remove
             else:
-                data = str(data, 'utf-8')
-                jsonRead(data)
-                #print(data)
 
+                #Tratamento o JSON
+                ####-------MENSAGEIROS-------###
+                if cod == '10': #caso de envio de latitude desejada (pensar em alguma forma para o caso desse ainda nao ser o balao correto para receber)
+                    print(cod)
+                    print(info)
+                     # abrir o jason para escrita da info 
+                    c.close
+                   
+                
+                #Desconecar
 
-            c.close
+                elif cod == '11':
+                    #escrever direto no json (seria algo que so o servidor do react pode fazer)
+                    c.close
+
+                elif cod == '20': #caso de envio de latitude para o ''servidor''
+                    import c as cliente
+                    #ler do json e enviar para endereco original
+                    #cliente.send ('11', 'valor lido do json', 'endecreco lido do original' ) #formular logica para: se for slave mandar para o mestre primeiro
+                    print (cod)
+                    print (info)
+                    c.close
+
+                
+                else:
+                    print('comando não existe')
+                    c.close
             break
     
     def run(self):
@@ -34,19 +59,7 @@ class Server():
             cThread.daemon = True 
             cThread.start() 
             self.connections.append(c) 
-            print("C",str(a[0])," ",str(a[1])) 
-
-    def jsonRead(self, x):
-        #Alterar o JSON
-        if x == '1':
-            print('caso 1')
-        
-        #Desconecar
-        elif == '2':
-            print('caso 2')
-        
-        else:
-            print('comando não existe')
+            print("C",str(a[0])," ",str(a[1]))
 
 server = Server()
 server.run()
