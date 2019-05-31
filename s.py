@@ -16,7 +16,8 @@ class Server():
 
     def handler(self, c, a):
         while True:
-            cod, info = [str(i) for i in c.recv(2048).decode('utf-8').split('\n')]
+          
+            cod, info, origem, destinoFinal = [str(i) for i in c.recv(2048).decode('utf-8').split('\n')]
             
             if not cod:
                 print("D",str(a[0])," ",str(a[1]))
@@ -33,19 +34,35 @@ class Server():
                    
                 
                 #Desconecar
+                
+                ######################### PIPELINE DE QUALQUER REQUISICAO ###########################
+                #FALTA IMPLEMENTAR get.location()
+                #FALTA IMPLEMENTAR get.master_ip()
+                #FALTA IMPLEMENTAR get.ip()
+                # Podemos reusar o codigo para qualquer outro tipo de requisicao alem da location
 
                 elif cod == '11':
-                    #escrever direto no json (seria algo que so o servidor do react pode fazer)
+                    if (get.ip() != origem):
+                        c.send ('11', info, origem, origem, destinoFinal)
+                    else:
+                        #abre jason
+                        #escreve location
+                        #fecha json
                     c.close
 
-                elif cod == '20': #caso de envio de latitude para o ''servidor''
+                elif cod == '20':
                     import c as cliente
-                    #ler do json e enviar para endereco original
-                    #cliente.send ('11', 'valor lido do json', 'endecreco lido do original' ) #formular logica para: se for slave mandar para o mestre primeiro
+                    if (destinoFinal == get.ip() and get.status() == 'slave'): #pegar o propio ip
+                        c.send ('11', get.location(), get.master_ip(), origem, destinoFinal) #ler location do json
+                        c.close
+                    elif (destinoFinal == get.ip()): #pegar o propio ip
+                        c.send ('11', get.location(), origem, origem, destinoFinal) #ler location do json
+                        c.close
+                    else:
+                        c.send ('20', info, destinoFinal, origem, destinoFinal)
                     print (cod)
                     print (info)
                     c.close
-
                 
                 else:
                     print('comando não existe')
