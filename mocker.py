@@ -32,6 +32,7 @@ def altitude(limiteInf=-20, limiteSup=100):
     :param limiteSup: (int) val > limiteInf
     :return: limiteInf <= val <= limiteSup
     """
+    # altura usa limites porque não ha maximos e minimos bem definidos como em latitude e longitude
     return randint(limiteInf, limiteSup)
 
 
@@ -39,17 +40,17 @@ def getPosAtual(dict):
     """
     Posição atual do balão.
 
-    :param dict: Dicionário com as informaçoes de estado do balão, adiciona a chave ao dicionario caso não exista.
+    :param dict: Dicionário com as informações de estado do balão.
     :return: [latitude, longitude, altura]
     """
-    return [dict.setdefault("latitude", 0), dict.setdefault("longitude", 0), dict.setdefault("altitude", 0)]
+    return [dict.get("latitude"), dict.get("longitude"), dict.get("altitude")]
 
 
 def setPosAtual(dict, lat, long, alt):
     """
     Modifica a posição atual do balão.
 
-    :param dict: Dicionário com as informaçoes de estado do balão.
+    :param dict: Dicionário com as informações de estado do balão.
     :param lat: (int) nova latitude
     :param long: (int) nova longitude
     :param alt: (int) nova altura
@@ -64,25 +65,50 @@ def getPosicaoDesejada(dict):
     """
     Posição alvo para o balão.
 
-    :param dict: Dicionário com as informaçoes de estado do balão, adiciona a chave ao dicionario caso não exista.
+    :param dict: Dicionário com as informações de localização para o balão.
     :return: [latitude, longitude, altura]
     """
-    return [dict.setdefault("latP", 0), dict.setdefault("longP", 0), dict.setdefault("altP", 0)]
+    return [dict.get("alvoLatitude"), dict.get("alvoLongitude"), dict.get("alvoAltura")]
 
 
 def setPosicaoDesejada(dict, lat, long, alt):
     """
     Modifica a posição alvo para o balão.
 
-    :param dict: Dicionário com as informaçoes de estado do balão.
+    :param dict: Dicionário com as informações de localização para o balão.
     :param lat: (int) nova latitude
     :param long: (int) nova longitude
     :param alt: (int) nova altura
     :return: indefinido
     """
-    dict["latP"] = lat
-    dict["longP"] = long
-    dict["altP"] = alt
+    dict["alvoLatitude"] = lat
+    dict["alvoLongitude"] = long
+    dict["alvoAltura"] = alt
+
+
+def getMaxDesvioAlvo(dict):
+    """
+        Desvio máximo aceitável do alvo para o balão.
+
+        :param dict: Dicionário com as informações de localização para o balão.
+        :return: [ desvio latitude, desvio longitude, desvio altura]
+        """
+    return [dict.get("desvioLatitude"), dict.get("desvioLongitude"), dict.get("desvioAltura")]
+
+
+def setMaxDesvioAlvo(dict, lat, long, alt):
+    """
+    Modifica o desvio mácimo do alvo para o balão.
+
+    :param dict: Dicionário com as informações de localização para o balão.
+    :param lat: (int) nova latitude
+    :param long: (int) nova longitude
+    :param alt: (int) nova altura
+    :return: indefinido
+    """
+    dict["desvioLatitude"] = lat
+    dict["desvioLongitude"] = long
+    dict["desvioAltura"] = alt
 
 
 def setFlagMovimento(dict, val):
