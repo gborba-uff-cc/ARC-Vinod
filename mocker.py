@@ -6,33 +6,27 @@ from time import sleep
 
 def latitude():
     """
-    Gera um valor para de latitude.
+    Gera um valor para latitude.
 
     :return: (int) -90 <= val <= 90
     """
     y = randint(0, 90)
-    #     y = uniform(91)             # 91 para que ocorra 90, uniform usa random[0,1)
-    #     if y > 90.0:                # nivela para 90
-    #         y = 90.0
     return y * choice((-1, 1))  # longitude com hemisferio valido
 
 
 def longitude():
     """
-    Gera um valor para de longitude.
+    Gera um valor para longitude.
 
     :return: (int) -180 <= val <= 180
     """
     x = randint(0, 180)
-    #     x = uniform(181)           # 181 para que ocorra 180, uniform usa random[0,1)
-    #     if x > 180.0:              # nivela para 180
-    #         x = 180.0
     return x * choice((-1, 1))  # longitude com hemisferio valido
 
 
 def altitude(limiteInf=-20, limiteSup=100):
     """
-    Gera um valor para de altitude.
+    Gera um valor para altitude.
 
     :param limiteInf: (int) val < limiteSup
     :param limiteSup: (int) val > limiteInf
