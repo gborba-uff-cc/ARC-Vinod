@@ -16,6 +16,7 @@ class Server():
 
     def handler(self, c, a):
         while True:
+          
             cod, info, origem, destinoFinal = [str(i) for i in c.recv(2048).decode('utf-8').split('\n')]
             
             if not cod:
@@ -33,8 +34,7 @@ class Server():
                    
                 
                 #Desconecar
-
-
+                
                 ######################### PIPELINE DE QUALQUER REQUISICAO ###########################
                 #FALTA IMPLEMENTAR get.location()
                 #FALTA IMPLEMENTAR get.master_ip()
@@ -63,7 +63,6 @@ class Server():
                     print (cod)
                     print (info)
                     c.close
-
                 
                 else:
                     print('comando não existe')
