@@ -45,6 +45,7 @@ class Server():
                     if (get.ip() != origem):
                         c.send ('11', info, origem, origem, destinoFinal)
                     else:
+                        pass
                         #abre jason
                         #escreve location
                         #fecha json
@@ -52,7 +53,8 @@ class Server():
 
                 elif cod == '20':
                     import c as cliente
-                    if (destinoFinal == get.ip() and get.status() == 'slave'): #pegar o propio ip
+                    import jsonRead as jr
+                    if (destinoFinal == jr.getIp() and get.status() == 'slave'): #pegar o propio ip
                         c.send ('11', get.location(), get.master_ip(), origem, destinoFinal) #ler location do json
                         c.close
                     elif (destinoFinal == get.ip()): #pegar o propio ip
