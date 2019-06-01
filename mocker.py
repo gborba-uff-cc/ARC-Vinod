@@ -216,6 +216,26 @@ def geraCoordenada():
     return [latitude(), longitude(), altitude()]
 
 
+def modificacaoDadosPermitida(dictFlags):
+    """
+    Retorna a permissão para a escrita da posição atual.
+
+    :param dictFlags: Dicionário com as flags que o servidor envia para o balão.
+    :return: (boolean)
+    """
+    return not dictFlags["lendoDadosPosicionamento"]
+
+
+def leituraPosicionamentoPermitida(dictFlags):
+    """
+    Retorna a permissão para a leitura da posição alvo.
+
+    :param dictFlags: Dicionário com as flags que o servidor envia para o balão.
+    :return: (boolean)
+    """
+    return
+
+
 # ============================================================
 with open("route.json", "r") as read_file:
     route = json.load(read_file)
