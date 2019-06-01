@@ -1,0 +1,12 @@
+{
+  "latitudeAtual": null,
+  "longitudeAtual": null,
+  "alturaAtual": null,
+  "movimento": false,
+  "motorN": false,
+  "motorS" : false,
+  "motorL": false,
+  "motorO": false,
+  "motorUp": false,
+  "motorDown": false
+}
