@@ -176,19 +176,19 @@ def acionaMotores(dictPos, dictServer):
     setPosAtual(dictPos, *novaPos)
 
 
-def desligaMotores(dict):
+def desligaMotores(dictPos):
     """
     Desliga todos os motores do balão.
 
     :param dict: Dicionário com as informaçoes de estado do balão.
     :return: indefinido
     """
-    dict["motorN"] = False
-    dict["motorS"] = False
-    dict["motorL"] = False
-    dict["motorO"] = False
-    dict["motorUp"] = False
-    dict["motorDown"] = False
+    dictPos["motorN"] = False
+    dictPos["motorS"] = False
+    dictPos["motorL"] = False
+    dictPos["motorO"] = False
+    dictPos["motorUp"] = False
+    dictPos["motorDown"] = False
 
 
 def emPosicao(dictDados, dictServer):
@@ -281,9 +281,11 @@ NOME_ARQ_FLAGS_SERVER = "flagsServer.json"
 dadosPos = carregaJson(NOME_ARQ_DADOS_POSICIONAMENTO)
 setFlagMovimento(dadosPos, False)
 desligaMotores(dadosPos)
+entraStandyBy=0
 while True:
     flags = carregaJson(NOME_ARQ_FLAGS_SERVER)
     if sistemaAtivo(flags):
+        entraStandyBy=0
         posAlvo = carregaJson(NOME_ARQ_POSICIONAMENTO_SERVER)
         # rede = carregaJson(NOME_ARQ_INFOS_REDE)
         # #  [PARA TESTE]
@@ -313,6 +315,9 @@ while True:
                                                                   posD=getPosicaoDesejada(posAlvo),
                                                                   desP=getMaxDesvioAlvo(posAlvo)))
     else:
+        if entraStandyBy == 0:
+            entraStandyBy = 1
+            desligaMotores(dadosPos)
         print("========================================\n"
               "Flag Sistema    : {}\n"
               "-----------------\n"
