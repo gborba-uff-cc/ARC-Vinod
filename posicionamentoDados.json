@@ -2,7 +2,7 @@
   "latitudeAtual": null,
   "longitudeAtual": null,
   "alturaAtual": null,
-  "movimento": false,
+  "movimentando": false,
   "motorN": false,
   "motorS" : false,
   "motorL": false,
