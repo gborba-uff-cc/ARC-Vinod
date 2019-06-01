@@ -43,7 +43,7 @@ def getPosAtual(dict):
     :param dict: Dicionário com as informações de estado do balão.
     :return: [latitude, longitude, altura]
     """
-    return [dict.get("latitude"), dict.get("longitude"), dict.get("altitude")]
+    return [dict.get("latitudeAtual"), dict.get("longitudeAtual"), dict.get("altitudeAtual")]
 
 
 def setPosAtual(dict, lat, long, alt):
@@ -56,9 +56,9 @@ def setPosAtual(dict, lat, long, alt):
     :param alt: (int) nova altura
     :return: indefinido
     """
-    dict["latitude"] = lat
-    dict["longitude"] = long
-    dict["altitude"] = alt
+    dict["latitudeAtual"] = lat
+    dict["longitudeAtual"] = long
+    dict["altitudeAtual"] = alt
 
 
 def getPosicaoDesejada(dict):
@@ -119,7 +119,7 @@ def setFlagMovimento(dict, val):
     :param val: (boolean)
     :return: indefinido
     """
-    dict["movimento"] = val
+    dict["movimentando"] = val
 
 
 def getFlagMovimento(dict):
@@ -129,7 +129,7 @@ def getFlagMovimento(dict):
     :param dict: Dicionário com as informaçoes de estado do balão, adiciona a chave ao dicionario caso não exista.
     :return: (boolean)
     """
-    return dict.setdefault("movimento", False)
+    return dict.get("movimentando")
 
 
 def acionaMotores(dict):
@@ -190,14 +190,19 @@ def desligaMotores(dict):
     dict["motorDown"] = False
 
 
-def emPosicao(dict):
+def emPosicao(dictDados, dictServer):
     """
-    Verifica se o balão chegou à posição alvo. Funciona para coordenadas com valores inteiros.
+    Verifica se o balão chegou à posição alvo observando a precisão exigida pelo servidor.
+    Funciona para coordenadas com valores inteiros.
 
     :param dict: Dicionário com as informaçoes de estado do balão.
     :return: (boolean)
     """
-    if getPosAtual(dict) == getPosicaoDesejada(dict):
+    posAlvo = getPosicaoDesejada(dictServer)
+    desvio = getMaxDesvioAlvo(dictServer)
+    limInferior = [posAlvo[0] - desvio[0], posAlvo[1] - desvio[1], posAlvo[2] - desvio[2]]
+    limSuperior = [posAlvo[0] + desvio[0], posAlvo[1] + desvio[1], posAlvo[2] + desvio[2]]
+    if limInferior <= getPosAtual(dictDados) <= limSuperior:
         return True
     return False
 
