@@ -16,6 +16,7 @@ class Server():
 
     def handler(self, c, a):
         while True:
+          
             cod, info, origem, destinoFinal = [str(i) for i in c.recv(2048).decode('utf-8').split('\n')]
             
             if not cod:
