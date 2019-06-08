@@ -15,3 +15,4 @@ def send(cod, info , destino, origem, destinoFinal):
     s.connect((destino,route["porta"]))
     #print("Cliente pronto...")
     s.sendall(str.encode("\n".join([str(cod), str(info), str(origem), str(destinoFinal)])))
+    

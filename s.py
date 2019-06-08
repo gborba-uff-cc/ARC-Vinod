@@ -10,7 +10,7 @@ class Server():
     #print("Server pronto...")
     def __init__(self): 
         #self.sock.bind((route["ip"],route["porta"])) 
-        self.sock.bind(('127.0.0.4',route["porta"]))
+        self.sock.bind(('127.0.0.1',route["porta"]))
         print("Server pronto...") 
         self.sock.listen(1) 
 
@@ -22,48 +22,34 @@ class Server():
                 print("D",str(a[0])," ",str(a[1]))
                 self.connections.remove
             else:
-
-                #Tratamento o JSON
-                ####-------MENSAGEIROS-------###
-                if cod == '10': #caso de envio de latitude desejada (pensar em alguma forma para o caso desse ainda nao ser o balao correto para receber)
-                    print(cod)
-                    print(info)
-                     # abrir o jason para escrita da info 
-                    c.close
-                   
-                
-                #Desconecar
+                import c as cliente
+                import jsonRead as jr
 
 
-                ######################### PIPELINE DE QUALQUER REQUISICAO ###########################
-                #FALTA IMPLEMENTAR get.location()
-                #FALTA IMPLEMENTAR get.master_ip()
-                #FALTA IMPLEMENTAR get.ip()
-                # Podemos reusar o codigo para qualquer outro tipo de requisicao alem da location
-
-                elif cod == '11':
-                    if (get.ip() != origem):
-                        c.send ('11', info, origem, origem, destinoFinal)
-                    else:
-                        #abre jason
-                        #escreve location
-                        #fecha json
-                    c.close
-
-                elif cod == '20':
-                    import c as cliente
-                    if (destinoFinal == get.ip() and get.status() == 'slave'): #pegar o propio ip
-                        c.send ('11', get.location(), get.master_ip(), origem, destinoFinal) #ler location do json
-                        c.close
-                    elif (destinoFinal == get.ip()): #pegar o propio ip
-                        c.send ('11', get.location(), origem, origem, destinoFinal) #ler location do json
+#----------------------------- MENSAGEIROS --------------------------------------------------------------------------------------------
+                if (cod == '11'):
+                    if (jr.getIp() != origem):
+                        print('master recebeu de volta')
+                        cliente.send ('11', info, origem, origem, destinoFinal)
                         c.close
                     else:
-                        c.send ('20', info, destinoFinal, origem, destinoFinal)
-                    print (cod)
-                    print (info)
-                    c.close
+                        print('server recebeu de volta')
+                        print(info)
+                        c.close()
 
+                elif (cod == '20'):  
+                    if (destinoFinal == jr.getIp() and jr.getType()): #pegar o propio ip
+                        print('slave recebeu')
+                        cliente.send ('11', jr.getLatitude(), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                        c.close
+                    elif (destinoFinal == jr.getIp()): #pegar o propio ip
+                        cliente.send ('11', jr.getLatitude(), origem, origem, destinoFinal) #ler location do json
+                        c.close
+                    else:
+                        print ('balao mestre recebeu')
+                        cliente.send ('20', info, destinoFinal, origem, destinoFinal)
+                        c.close  
+#----------------------------------------------------------------------------------------------------------------------------------------
                 
                 else:
                     print('comando não existe')
