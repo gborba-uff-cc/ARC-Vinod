@@ -1,7 +1,7 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+Balao/node_modules
 
 # testing
 /coverage
@@ -20,5 +20,5 @@ yarn-error.log*
 .idea/modules.xml
 .idea/vcs.xml
 .idea/workspace.xml
-src/__pycache__/c.cpython-37.pyc
-src/__pycache__/jsonRead.cpython-37.pyc
+Balao/src/__pycache__
+Balao/__pycache__
