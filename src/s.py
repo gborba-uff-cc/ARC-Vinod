@@ -1,7 +1,7 @@
 import socket, json
 import threading
 
-with open("route.json", "r") as read_file:
+with open("./data/infosRoteador.json", "r") as read_file:
     route = json.load(read_file)
 
 class Server():
@@ -10,7 +10,7 @@ class Server():
     #print("Server pronto...")
     def __init__(self): 
         #self.sock.bind((route["ip"],route["porta"])) 
-        self.sock.bind(('127.0.0.1',route["porta"]))
+        self.sock.bind((route["ip"],route["porta"]))
         print("Server pronto...") 
         self.sock.listen(1) 
 

@@ -2,10 +2,9 @@ from flask import Flask, jsonify, json, request, render_template
 
 app = Flask(__name__)
 
-with open("route.json", "r") as read_file:
-    route = json.load(read_file)
-    ip = route["ip"]
-    con = route["conectado"]
+with open("infosRoteador.json", "r") as read_file:
+    infosRoteador = json.load(read_file)
+    ip = infosRoteador["ip"]
 
 @app.route("/")
 def hello():

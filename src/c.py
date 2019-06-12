@@ -8,11 +8,11 @@ import sys
 # cod - 20 - servidor pediu a latitude apesar de mandarmos o cod e o info, nesse caso o info pouco importa
 
 def send(cod, info , destino, origem, destinoFinal):
-    with open("route.json", "r") as read_file:
+    with open("./data/infosRoteador.json", "r") as read_file:
         route = json.load(read_file)
+
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     #s.connect((route["ip"],route["porta"])) 
     s.connect((destino,route["porta"]))
     #print("Cliente pronto...")
     s.sendall(str.encode("\n".join([str(cod), str(info), str(origem), str(destinoFinal)])))
-    
