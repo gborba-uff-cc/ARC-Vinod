@@ -10,8 +10,8 @@ class Server():
     #print("Server pronto...")
     def __init__(self): 
         #self.sock.bind((route["ip"],route["porta"])) 
-        self.sock.bind((route["ip"],route["porta"]))
-        print("Server pronto...") 
+        self.sock.bind(("127.0.0.1",route["porta"]))
+        print("Server pronto...")
         self.sock.listen(1) 
 
     def handler(self, c, a):
@@ -29,14 +29,14 @@ class Server():
 
 #----------------------------- MENSAGEIROS --------------------------------------------------------------------------------------------
                 if (cod == '11'):
-                    if (jr.getIp() != origem):
+                    if ("127.0.0.1" != origem):
                         print('master recebeu de volta')
                         cliente.send ('11', info, origem, origem, destinoFinal)
                         c.close
                     else:
                         print('server recebeu de volta')
                         print(info)
-                        c.close()
+                        c.close
 
                 elif (cod == '20'):  
                     if (destinoFinal == jr.getIp() and jr.getType()): #pegar o propio ip
