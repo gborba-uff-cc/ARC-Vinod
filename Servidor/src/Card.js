@@ -40,7 +40,7 @@ class Card extends React.Component {
                 </div>
                 <div className="ui input">
                     <input placeholder="Enter New Location" type="text" value={this.state.input} onChange={this.updateInput}/>
-                    <div onClick={this.sendInput}>Cliquee aqui</div>
+                    <div onClick={this.sendInput}>Clique aqui</div>
                 </div>
             </div>
             <div className="extra content">
