@@ -13,7 +13,9 @@ def getJson():
     with open("league.json", "r") as read_file:
         league = json.load(read_file)
         ip = league["ip"]
-    c.send('20', '-1',  '127.0.0.2', '127.0.0.1', '127.0.0.3')
+
+    c.send('120', '-1',  '127.0.0.2', '127.0.0.1', '127.0.0.3')
+
     return jsonify(league)
 
 @app.route("/teste", methods=['GET'])

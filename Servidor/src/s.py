@@ -27,31 +27,62 @@ class Server():
                 import jsonRead as jr
 
 
-#----------------------------- MENSAGEIROS --------------------------------------------------------------------------------------------
-                if (cod == '11'):
+
+#----------------------------- MENSAGEIROS DE LEITURA (NA VISAO DO SERVIDOR) -------------------------
+                if (cod == '110'):
                     if ("127.0.0.1" != origem):
                         print('master recebeu de volta')
-                        cliente.send ('11', info, origem, origem, destinoFinal)
+                        cliente.send ('110', info, origem, origem, destinoFinal)
+                        c.close
+                    else:
+                        print('server recebeu de volta')
+                        print(info)
+                        # escrever aqui no json do servidor
+                        c.close
+
+                elif (cod == '120'):  
+                    if (destinoFinal == jr.getIp() and jr.getType() == 'slave'): 
+                        print('slave recebeu')
+                        cliente.send ('110', jr.getLatitude(), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                        c.close
+                    elif (destinoFinal == jr.getIp()): #pegar o propio ip
+                        cliente.send ('110', jr.getLatitude(), origem, origem, destinoFinal) #ler location do json
+                        c.close
+                    else:
+                        print ('balao mestre recebeu')
+                        cliente.send ('120', info, destinoFinal, origem, destinoFinal)
+                        c.close  
+#--------------------------------------------------------------------------------------------------------------
+
+#----------------------------- MENSAGEIROS DE ESCRITA ----------------------------------------------------------
+                elif (cod == '210'):
+                    if ("127.0.0.1" != origem):
+                        print('master recebeu de volta')
+                        cliente.send ('210', info, origem, origem, destinoFinal)
+
                         c.close
                     else:
                         print('server recebeu de volta')
                         print(info)
                         c.close
 
-                elif (cod == '20'):  
-                    if (destinoFinal == jr.getIp() and jr.getType()): #pegar o propio ip
+                elif (cod == '220'):  
+                    if (destinoFinal == jr.getIp() and jr.getType() == 'slave'): #pegar o propio ip
                         print('slave recebeu')
-                        cliente.send ('11', jr.getLatitude(), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                        #escrever no json aqui
+                        #if (testarleitura()):
+                        #   escreverLatitudeJson(info)
+                        cliente.send ('210', 'ok', jr.getMasterIp(), origem, destinoFinal)
                         c.close
                     elif (destinoFinal == jr.getIp()): #pegar o propio ip
-                        cliente.send ('11', jr.getLatitude(), origem, origem, destinoFinal) #ler location do json
+                        cliente.send ('210', jr.getLatitude(), origem, origem, destinoFinal) #ler location do json
                         c.close
                     else:
                         print ('balao mestre recebeu')
-                        cliente.send ('20', info, destinoFinal, origem, destinoFinal)
+                        cliente.send ('220', info, destinoFinal, origem, destinoFinal)
                         c.close  
-#----------------------------------------------------------------------------------------------------------------------------------------
-                
+#-------------------------------------------------------------------------------------------------------------------------
+
                 else:
                     print('comando nao existe')
                     c.close
