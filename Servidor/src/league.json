@@ -1,0 +1,1 @@
+{"sistema": true, "ip": "127.0.0.1", "mascara": "127.0.0.0", "porta": 4500, "status": 200, "dbs": 10, "conectado": "127.0.0.2", "latitude": -11, "longitude": -12, "altitude": -456, "maxAltitude": 100, "movimento": true, "latP": 65, "longP": -178, "motorN": true, "motorS": false, "motorL": false, "motorO": true, "motorUp": true, "motorDown": false, "modo": "slave", "altP": 41}

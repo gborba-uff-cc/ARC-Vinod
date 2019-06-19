@@ -10,8 +10,8 @@ class Server():
     #print("Server pronto...")
     def __init__(self): 
         #self.sock.bind((route["ip"],route["porta"])) 
-        self.sock.bind((route["ip"],route["porta"]))
-        print("Server pronto...") 
+        self.sock.bind(("127.0.0.1",route["porta"]))
+        print("Server pronto...")
         self.sock.listen(1) 
 
     def handler(self, c, a):
@@ -27,9 +27,10 @@ class Server():
                 import jsonRead as jr
 
 
+
 #----------------------------- MENSAGEIROS DE LEITURA (NA VISAO DO SERVIDOR) -------------------------
                 if (cod == '110'):
-                    if (jr.getIp() != origem):
+                    if ("127.0.0.1" != origem):
                         print('master recebeu de volta')
                         cliente.send ('110', info, origem, origem, destinoFinal)
                         c.close
@@ -55,7 +56,7 @@ class Server():
 
 #----------------------------- MENSAGEIROS DE ESCRITA ----------------------------------------------------------
                 elif (cod == '210'):
-                    if (jr.getIp() != origem):
+                    if ("127.0.0.1" != origem):
                         print('master recebeu de volta')
                         cliente.send ('210', info, origem, origem, destinoFinal)
                         c.close

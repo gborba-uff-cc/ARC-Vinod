@@ -2,6 +2,7 @@
 
 # dependencies
 Balao/node_modules
+Servidor/node_modules
 
 # testing
 /coverage
