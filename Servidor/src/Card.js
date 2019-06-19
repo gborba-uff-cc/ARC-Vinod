@@ -26,7 +26,7 @@ class Card extends React.Component {
                 <img alt = ""  />
             </div>
             <div className="content">
-                <a className="header">Balão </a>
+                <a className="header">{this.props.name} </a>
                 <div className="meta">
                 </div>
                 <div className="description">
