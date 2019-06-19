@@ -59,6 +59,7 @@ class Server():
                     if ("127.0.0.1" != origem):
                         print('master recebeu de volta')
                         cliente.send ('210', info, origem, origem, destinoFinal)
+
                         c.close
                     else:
                         print('server recebeu de volta')
@@ -81,6 +82,7 @@ class Server():
                         cliente.send ('220', info, destinoFinal, origem, destinoFinal)
                         c.close  
 #-------------------------------------------------------------------------------------------------------------------------
+
                 else:
                     print('comando nao existe')
                     c.close

@@ -6,7 +6,6 @@ import Controls from './Controls';
 import Card from './Card';
 import { async } from 'q';
 
-
 class App extends React.Component {
     state = {
         baloons: [
@@ -45,6 +44,7 @@ class App extends React.Component {
     }
 
 }
+
 ReactDOM.render( 
     <App />, document.querySelector('#root')
 );
