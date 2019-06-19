@@ -12,7 +12,7 @@ with open("league.json", "r") as read_file:
 def getJson():
     with open("league.json", "r") as read_file:
         league = json.load(read_file)
-        ip = league["ip"]
+        #ip = league["ip"]
 
     c.send('120', '-1',  '127.0.0.2', '127.0.0.1', '127.0.0.3')
 
