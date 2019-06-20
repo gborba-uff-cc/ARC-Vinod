@@ -67,7 +67,7 @@ class Server():
                 elif (cod == '220'):  
                     if (destinoFinal == jr.getIp() and jr.getType() == 'slave'): #pegar o propio ip
                         print('slave recebeu')
-                        #escrever no json aqui
+                        # TODO escrever no json aqui
                         #if (testarleitura()):
                         #   escreverLatitudeJson(info)
                         cliente.send ('210', 'ok', jr.getMasterIp(), origem, destinoFinal)
