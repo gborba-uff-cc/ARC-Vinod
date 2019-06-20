@@ -1,7 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+Balao/node_modules
+Servidor/node_modules
 
 # testing
 /coverage
@@ -20,3 +21,8 @@ yarn-error.log*
 .idea/modules.xml
 .idea/vcs.xml
 .idea/workspace.xml
+Balao/src/__pycache__
+Balao/__pycache__
+Servidor/src/c.pcy
+Servidor/src/backend.pcy
+Servidor/src/c.pcy
