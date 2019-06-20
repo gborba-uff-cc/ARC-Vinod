@@ -70,6 +70,7 @@ class Server():
                         #escrever no json aqui
                         #if (testarleitura()):
                         #   escreverLatitudeJson(info)
+
                         cliente.send ('210', 'ok', jr.getMasterIp(), origem, destinoFinal)
                         c.close
                     elif (destinoFinal == jr.getIp()): #pegar o propio ip

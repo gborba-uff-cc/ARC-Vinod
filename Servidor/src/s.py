@@ -27,7 +27,6 @@ class Server():
                 import jsonRead as jr
 
 
-
 #----------------------------- MENSAGEIROS DE LEITURA (NA VISAO DO SERVIDOR) -------------------------
                 if (cod == '110'):
                     if ("127.0.0.1" != origem):
@@ -82,7 +81,6 @@ class Server():
                         cliente.send ('220', info, destinoFinal, origem, destinoFinal)
                         c.close  
 #-------------------------------------------------------------------------------------------------------------------------
-
                 else:
                     print('comando nao existe')
                     c.close
