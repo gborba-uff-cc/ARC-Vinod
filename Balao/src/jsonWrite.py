@@ -13,7 +13,7 @@ def gravaJson(dict, nome):
     # faz no maximo n tentativas de escrita
     for i in range(30):
         try:
-            print("[jsonWrite.gravaJson]", "tentativa de escrita num.", i+1)
+            # print("[jsonWrite.gravaJson]", "tentativa de escrita num.", i+1, "em", nome)
             with open(nome, 'w') as arq:
                 json.dump(dict, arq)
             return True
