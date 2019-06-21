@@ -3,7 +3,7 @@ import jsonWrite
 # import os  # TESTE
 
 
-class ManipuladorServerBalao():
+class ManipuladorServerBalao:
 
     def __init__(self):
         pass
