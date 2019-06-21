@@ -1,5 +1,6 @@
 import json
-import os
+# import os  # TESTE
+
 
 def gravaJson(dict, nome):
     """
