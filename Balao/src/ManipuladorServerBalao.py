@@ -10,12 +10,13 @@ class ManipuladorServerBalao:
 
     def atualizaCampoJson(self, arq, **kwargs):
         """
-        Atualiza o(s) campo(s) no(s) arquivo(s) com o(s) valor(es) que foram recebidos na forma.
+        Atualiza o(s) campo(s) no arquivo com o(s) valor(es) que foram recebidos.
 
         :param arq: nome do arquivo que sera aberto
-        :param kwargs: campo=valor  <- forma de uso;
-                       campo é o parametro que corresponde ao campo que sera atualizado;
-                       valor é o novo valor para o campo;
+        :param kwargs: campo=valor, ...
+            -> Forma de uso:
+                campo é o parametro que corresponde ao campo que sera atualizado;
+                valor é o novo valor para o campo;
         :return: (boolean) dizendo se a atualização do valor foi bem sucedida
         """
         d = jsonRead.carregaJson(arq)
@@ -26,6 +27,7 @@ class ManipuladorServerBalao:
             return True
         else:
             return False
+
 
 # ------------------------------ TESTE ------------------------------
 # funcionando
