@@ -30,7 +30,7 @@ def carregaJson(nome):
     # faz no maximo n tentativas de leitura, para não travar o sistema
     for i in range(30):
         try:
-            print("[jsonRead.carregaJson]", "tentativa de leitura num.", i+1)
+            # print("[jsonRead.carregaJson]", "tentativa de leitura num.", i+1, "em", nome)
             with open(nome) as arq:
                 return json.load(arq)
         # não pude acessar
