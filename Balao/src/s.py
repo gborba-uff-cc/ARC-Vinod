@@ -21,7 +21,7 @@ class Server():
 
     def handler(self, c, a):
         while True:
-          
+
             cod, info, origem, destinoFinal = [str(i) for i in c.recv(2048).decode('utf-8').split('\n')]
             
             if not cod:
@@ -31,7 +31,8 @@ class Server():
             else:
                 import c as cliente
                 import jsonRead as jr
-                from .ManipuladorServerBalao import ManipuladorServerBalao as msb
+                import ManipuladorServerBalao as arq_msb
+                manipulador = arq_msb.ManipuladorServerBalao()
 
 
 #----------------------------- MENSAGEIROS DE LEITURA (NA VISAO DO SERVIDOR) -------------------------
@@ -75,14 +76,15 @@ class Server():
                     if (destinoFinal == jr.getIp() and jr.getType() == 'slave'): #pegar o propio ip
                         print('slave recebeu')
                         # tenta dizer ao balão que vai atualizar a posição alvo
-                        if msb.atualizaCampoJson(arq=self.NOME_ARQUIVO_FLAGS_SERVER,
-                                                 modificandoPosicionamentoAlvo=True):
+                        if manipulador.atualizaCampoJson(arq=self.NOME_ARQUIVO_FLAGS_SERVER,
+                                                         modificandoPosicionamentoAlvo=True):
                             # atualizar a posição alvo
-                            msb.atualizaCampoJson(arq=self.NOME_ARQUIVO_POSICAO_ALVO,
-                                                  alvoLatitude=50)
+                            # TODO modificar a constante de atualização por uma variavel
+                            manipulador.atualizaCampoJson(arq=self.NOME_ARQUIVO_POSICAO_ALVO,
+                                                          alvoLatitude=60)
                             # diz que terminou de atualizar a posição alvo (poderia testar se consegiu dizer)
-                            msb.atualizaCampoJson(arq=self.NOME_ARQUIVO_FLAGS_SERVER,
-                                                  modificandoPosicionamentoAlvo=True)
+                            manipulador.atualizaCampoJson(arq=self.NOME_ARQUIVO_FLAGS_SERVER,
+                                                          modificandoPosicionamentoAlvo=False)
                             cliente.send ('210', 'ok', jr.getMasterIp(), origem, destinoFinal)
                         else:
                             # TODO mensagem de não ok
