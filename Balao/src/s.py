@@ -30,7 +30,7 @@ class Server():
             else:
                 import c as cliente
                 import jsonRead as jr
-                import jsonWrite as jw
+                import ManipuladorServerBalao as msb
 
 
 #----------------------------- MENSAGEIROS DE LEITURA (NA VISAO DO SERVIDOR) -------------------------
@@ -73,25 +73,19 @@ class Server():
                 elif (cod == '220'):  
                     if (destinoFinal == jr.getIp() and jr.getType() == 'slave'): #pegar o propio ip
                         print('slave recebeu')
-                        # TODO escrever no json aqui
-                        # dizer ao balão que vai atualizar a posição alvo
-                        if self.sinalizaMudancaAlvo(True):
-                        # atualizar a posição alvo
-                            # carregar o json atual
-                            d = jr.carregaJson(self.NOME_ARQUIVO_POSICAO_ALVO)
-                            # atualizar o json
-                            d["alvoLatitude"] = 50  # TODO tirar a constante daqui
-                            # gravar o json novamente
-                            jw.gravaJson(d, self.NOME_ARQUIVO_POSICAO_ALVO)
-                            # dizer que ja atualizou a posição alvo
-                            self.sinalizaEscritaJson(False)
+                        # tenta dizer ao balão que vai atualizar a posição alvo
+                        if msb.atualizaCampoJson(arq=self.NOME_ARQUIVO_FLAGS_SERVER,
+                                                 modificandoPosicionamentoAlvo=True):
+                            # atualizar a posição alvo
+                            msb.atualizaCampoJson(arq=self.NOME_ARQUIVO_POSICAO_ALVO,
+                                                  alvoLatitude=50)
+                            # diz que terminou de atualizar a posição alvo (poderia testar se consegiu dizer)
+                            msb.atualizaCampoJson(arq=self.NOME_ARQUIVO_FLAGS_SERVER,
+                                                  modificandoPosicionamentoAlvo=True)
+                            cliente.send ('210', 'ok', jr.getMasterIp(), origem, destinoFinal)
                         else:
                             # TODO mensagem de não ok
                             pass
-
-                        # if (testarleitura()):
-                        #   escreverLatitudeJson(info)
-                        cliente.send ('210', 'ok', jr.getMasterIp(), origem, destinoFinal)
                         c.close()
                     elif (destinoFinal == jr.getIp()): #pegar o propio ip
                         cliente.send ('210', jr.getLatitude(), origem, origem, destinoFinal) #ler location do json
@@ -105,23 +99,6 @@ class Server():
                     print('comando nao existe')
                     c.close()
             break
-
-    def sinalizaEscritaJson(self, val):
-        """
-        Sinaliza ao balao, com o valor recebido, o inicio ou o fim da modificação na posição alvo
-        :param val: (boolean)
-        :return:
-        """
-        import jsonRead
-        import jsonWrite
-        d = jsonRead.carregaJson(self.NOME_ARQUIVO_FLAGS_SERVER)
-        if d is not None:
-            d["modificandoPosicionamentoAlvo"] = val
-            jsonWrite.gravaJson(d, self.NOME_ARQUIVO_FLAGS_SERVER)
-            return True
-        else:
-            return False
-
     
     def run(self):
         while True:
