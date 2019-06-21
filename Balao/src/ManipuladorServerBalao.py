@@ -1,9 +1,9 @@
 import jsonRead
 import jsonWrite
-import os
+# import os  # TESTE
 
 
-class HandlerServerBalao():
+class ManipuladorServerBalao():
 
     def __init__(self):
         pass
@@ -16,7 +16,7 @@ class HandlerServerBalao():
         :param kwargs: campo=valor  <- forma de uso;
                        campo é o parametro que corresponde ao campo que sera atualizado;
                        valor é o novo valor para o campo;
-        :return: (boolean)
+        :return: (boolean) dizendo se a atualização do valor foi bem sucedida
         """
         d = jsonRead.carregaJson(arq)
         if d is not None:
