@@ -11,7 +11,7 @@ class Server():
     # nome do arquivo que este server usa para sinalizar ao balao
     NOME_ARQUIVO_FLAGS_SERVER = os.path.join("data","flagsServer.json")
     # nome do arquivo que este server passar valores ao balao
-    NOME_ARQUIVO_POSICAO_ALVO = "./data/posicionamentoServer.json"
+    NOME_ARQUIVO_POSICAO_ALVO = os.path.join("data","posicionamentoServer.json")
     #print("Server pronto...")
     def __init__(self): 
         #self.sock.bind((route["ip"],route["porta"])) 
