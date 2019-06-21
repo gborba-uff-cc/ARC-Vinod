@@ -26,11 +26,12 @@ class Server():
             
             if not cod:
                 print("D",str(a[0])," ",str(a[1]))
-                self.connections.remove()
+                # TODO remove precisa de parametro(s)
+                self.connections.remove
             else:
                 import c as cliente
                 import jsonRead as jr
-                import ManipuladorServerBalao as msb
+                from .ManipuladorServerBalao import ManipuladorServerBalao as msb
 
 
 #----------------------------- MENSAGEIROS DE LEITURA (NA VISAO DO SERVIDOR) -------------------------
