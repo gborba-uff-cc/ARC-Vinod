@@ -30,7 +30,7 @@ class ManipuladorServerBalao():
 # ------------------------------ TESTE ------------------------------
 # funcionando
 
-# HandlerServerBalao().atualizaCampoJson(arq=os.path.join("data","flagsServer.json"),
-#                                        sistema=False,
-#                                        lendoDadosPosicionamento=False,
-#                                        modificandoPosicionamentoAlvo=False)
+# ManipuladorServerBalao().atualizaCampoJson(arq=os.path.join("data","flagsServer.json"),
+#                                            sistema=False,
+#                                            lendoDadosPosicionamento=False,
+#                                            modificandoPosicionamentoAlvo=False)
