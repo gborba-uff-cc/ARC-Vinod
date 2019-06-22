@@ -15,7 +15,7 @@ class Card extends React.Component {
     }
 
     sendInput = async () => {
-        const response = await axios.get('http://localhost:5000/');
+        const response = await axios.get('http://localhost:5000/' + this.props.id);
         this.setState({ data: response.data });
     }
 

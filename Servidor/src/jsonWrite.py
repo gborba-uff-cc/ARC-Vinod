@@ -4,10 +4,10 @@ import json
 
 def gravaJson(dict, nome):
     """
-    Monta um arquivo .json a partir de um dicionário.
+    Monta um arquivo .json a partir de um dicionario.
 
-    :param dict: Dicionário com o que será escrito
-    :param nome: Nome do arquivo .json que será escrito.
+    :param dict: Dicionario com o que sera escrito
+    :param nome: Nome do arquivo .json que sera escrito.
     :return: (boolean)
     """
     # faz no maximo n tentativas de escrita
@@ -18,7 +18,7 @@ def gravaJson(dict, nome):
                 json.dump(dict, arq)
             return True
         except PermissionError:
-            # Está em uso pelo sistema, tento novamente
+            # Esta em uso pelo sistema, tento novamente
             pass
     return False
 

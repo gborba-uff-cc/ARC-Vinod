@@ -26,7 +26,7 @@ class App extends React.Component {
         let baloons = this.state.baloons;
         baloons.push({
             name: `Balao ${baloons.length+1}`,
-            id: baloons.length + 2
+            id: baloons.length + 1
         });
         this.setState({baloons:baloons})
 

@@ -85,7 +85,7 @@ class Server():
                         possivel = True
                         temp = info.split()
                         temp[1] = int(temp[1])
-                        # se a informação tem dois campos e consegui dizer ao balão que vai atualizar a posição alvo
+                        # se a informacao tem dois campos e consegui dizer ao balao que vai atualizar a posicao alvo
                         if len(temp) == 2 and manipulador.atualizaCampoJson(self.NOME_ARQUIVO_FLAGS_SERVER,
                                                                             modificandoPosicionamentoAlvo=True):
                             # escreve nova(o) latitude
@@ -114,7 +114,7 @@ class Server():
                                                               desvioAltura=temp[1])
                             else:
                                 possivel = False
-                            # diz que terminou de atualizar a posição alvo
+                            # diz que terminou de atualizar a posicao alvo
                             manipulador.atualizaCampoJson(self.NOME_ARQUIVO_FLAGS_SERVER,
                                                           modificandoPosicionamentoAlvo=False)
                         else:
