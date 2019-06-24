@@ -54,14 +54,31 @@ class Server():
                         # escrever aqui no json do servidor
                         c.close()
 
-                elif (cod == '120'):  
+                elif (cod == '120'): 
                     if (destinoFinal == jr.getIp() and jr.getType() == 'slave'): 
                         print('slave recebeu')
-                        cliente.send ('110', jr.getLatitude(), jr.getMasterIp(), origem, destinoFinal) #ler location do json
-                        c.close()
-                    elif (destinoFinal == jr.getIp()): #pegar o propio ip
-                        cliente.send ('110', jr.getLatitude(), origem, origem, destinoFinal) #ler location do json
-                        c.close()
+                        tempor = info.split()
+                        if len(tempor == 2):
+                            if temp[0].lower() in self.equivAlvoLatitude:
+                                cliente.send ('110', 'lat '+jr.getLatitude(), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                                c.close()
+                            elif temp[0].lower() in self.equivAlvoLatitude:
+                                cliente.send ('110', 'long '+jr.getLongitude(), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                                c.close()
+                            elif temp[0].lower() in self.equivAlvoLatitude:
+                                cliente.send ('110', 'alt '+jr.getAltitude(), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                                c.close()
+                    elif (destinoFinal == jr.getIp()):
+                        if len(tempor == 2):
+                            if temp[0].lower() in self.equivAlvoLatitude:
+                                cliente.send ('110', 'lat '+jr.getLatitude(), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                                c.close()
+                            elif temp[0].lower() in self.equivAlvoLatitude:
+                                cliente.send ('110', 'long '+jr.getLongitude(), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                                c.close()
+                            elif temp[0].lower() in self.equivAlvoLatitude:
+                                cliente.send ('110', 'alt '+jr.getAltitude(), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                                c.close()     
                     else:
                         print ('balao mestre recebeu')
                         cliente.send ('120', info, destinoFinal, origem, destinoFinal)

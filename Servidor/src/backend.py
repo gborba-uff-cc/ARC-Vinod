@@ -20,7 +20,7 @@ data= {
     "movimento": True,
     "latP": 1, 
     "longP": 1, 
-    "modo": "slave", 
+    "modo": "undefined", 
     "altP": 1
     }
 
@@ -37,13 +37,20 @@ def getJson(id):
     with open("./data/127.0.0."+str(id+1)+".json", "r") as read_file:
         league = json.load(read_file)
 
-    #c.send('220', 'lat -999',  '127.0.0.2', '127.0.0.1', '127.0.0.3')
 
     return jsonify(league)
 
-@app.route("/teste", methods=['GET'])
-def getLat():
-    return ('chamar metodo acima')
+@app.route("/get<string:input>", methods=['GET'])
+def getInfo(input):
+    print (input)
+    if input == 'lat':
+        c.send('120', 'lat -999',  '127.0.0.2', '127.0.0.1', '127.0.0.3')
+    if input == 'long':
+        c.send('120', 'long -999',  '127.0.0.2', '127.0.0.1', '127.0.0.3')
+    if input == 'alt':
+        c.send('120', 'alt -999',  '127.0.0.2', '127.0.0.1', '127.0.0.3')
+          
+    return ("")
 
 
 if __name__ == '__main__':
