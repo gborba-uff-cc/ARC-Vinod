@@ -1,0 +1,76 @@
+.cards{
+    max-width: 100%;
+}
+
+.cards .actions{
+    display: flex;
+    justify-content: space-between;
+    width: 650px;
+    margin: 20px auto;
+}
+
+.cards .actions button{
+    padding:9px 10px;
+    width:200px;
+    border:1px solid #4EBADA;
+    color:#fff;
+    text-transform:uppercase;
+    text-shadow:0 -1px 0 rgba(0,0,0,.4);
+    font-weight:bold;
+    font-size:14px;
+    background-color:#4EBADA;
+    box-shadow:0 1px 0 rgba(255,255,255,.4) inset;
+    border-radius:3px;
+    -webkit-transition:all 0.28s ease-in 0s;
+    -moz-transition:all 0.28s ease-in 0s;
+    -o-transition:all 0.28s ease-in 0s;
+    -ms-transition:all 0.28s ease-in 0s;
+    transition:all 0.28s ease-in 0s;
+    vertical-align: baseline;
+    line-height: normal;
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+.cards .actions button:hover,button:focus{
+    transition: 0.5s;
+    background: #465CE8;
+    color: #fff;
+}
+
+.cards .actions button:active{
+  outline:none;
+  box-shadow:0 1px 4px rgba(0,0,0,0.5) inset;
+}
+
+.BoxCards{
+    width: 1320px;
+    height: auto;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+@media screen and (max-width: 1325px) {
+    .BoxCards{
+        width: 880px;
+    }
+ }
+
+@media screen and (max-width: 900px) {
+    .BoxCards{
+        width: 440px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .cards .actions {
+        display: block;
+        justify-content: space-between;
+        width: 200px;
+        margin: 20px auto;
+    }
+
+    .cards .actions button {
+        margin-bottom: 10px;
+    }
+}
