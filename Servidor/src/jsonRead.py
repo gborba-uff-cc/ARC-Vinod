@@ -19,6 +19,14 @@ def getLatitude():
     with open("./data/dadosPosicionamento.json", "r") as read_file:
         dadosPosicionamento = json.load(read_file)
     return dadosPosicionamento["latitudeAtual"]
+def getLongitude():
+    with open("./data/dadosPosicionamento.json", "r") as read_file:
+        dadosPosicionamento = json.load(read_file)
+    return dadosPosicionamento["longitudeAtual"]
+def getAltitude():
+    with open("./data/dadosPosicionamento.json", "r") as read_file:
+        dadosPosicionamento = json.load(read_file)
+    return dadosPosicionamento["alturaAtual"]
 
 def carregaJson(nome):
     """

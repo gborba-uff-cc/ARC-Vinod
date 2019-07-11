@@ -7,7 +7,7 @@ export default class Main extends Component {
     state = {
         baloons: [
             {
-                name: `Balao 1`,
+                name: `127.0.0.2`,
                 id: 1
             }
         ]
@@ -22,7 +22,7 @@ export default class Main extends Component {
     addBaloon = () => {
         let baloons = this.state.baloons;
         baloons.push({
-            name: `Balao ${baloons.length+1}`,
+            name: `127.0.0.${baloons.length+2}`,
             id: baloons.length + 1
         });
         this.setState({baloons:baloons})

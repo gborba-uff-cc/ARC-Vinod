@@ -20,13 +20,17 @@ class Card extends React.Component {
         this.setState({ input2: e.target.value });
     }
 
-    sendInput = async () => {
+    refreshView = async () => {
         const response = await axios.get('http://localhost:5000/' + this.props.id);
         this.setState({ data: response.data });
     }
 
+    sendInput = async () => {
+        const response = await axios.get('http://localhost:5000/send' + this.state.input +this.props.id);
+    }
+
     getInput = async () => {
-        const response = await axios.get('http://localhost:5000/get' + this.state.input2);
+        const response = await axios.get('http://localhost:5000/get' + this.state.input2 +this.props.id);
     }
 
     render() {
@@ -44,6 +48,16 @@ class Card extends React.Component {
                 <div className="description">
                     Z : {this.state.data && this.state.data.altitude}
                 </div>
+                <div className="description">
+                    Conct : {this.state.data && this.state.data.conectado}
+                </div>
+                <div className="description">
+                    dbs : {this.state.data && this.state.data.dbs}
+                </div>
+                <div className="description">
+                    status : {this.state.data && this.state.data.status}
+                </div>
+                
             </div>
             
             <div className="boxInput2">  
@@ -60,7 +74,7 @@ class Card extends React.Component {
             <div className="clear"></div>
 
             <div className="contentModo">
-                <input onClick={this.sendInput} type="submit" className="btn submit"  value="Refresh"/>
+                <input onClick={this.refreshView} type="submit" className="btn submit"  value="Refresh"/>
                 <a>
                 Modo : {this.state.data && this.state.data.modo} 
                 </a>
