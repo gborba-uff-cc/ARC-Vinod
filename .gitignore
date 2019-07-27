@@ -32,3 +32,4 @@ Servidor/src/__pycache__/c.cpython-37.pyc
 Servidor/src/__pycache__/
 BalaoTeste01/
 BalaoTeste02/
+*.pyc

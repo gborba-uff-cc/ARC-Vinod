@@ -54,16 +54,35 @@ class Server():
                         # escrever aqui no json do servidor
                         c.close()
 
-                elif (cod == '120'):  
+                elif (cod == '120'): 
                     if (destinoFinal == jr.getIp() and jr.getType() == 'slave'): 
                         print('slave recebeu')
-                        cliente.send ('110', jr.getLatitude(), jr.getMasterIp(), origem, destinoFinal) #ler location do json
-                        c.close()
-                    elif (destinoFinal == jr.getIp()): #pegar o propio ip
-                        cliente.send ('110', jr.getLatitude(), origem, origem, destinoFinal) #ler location do json
-                        c.close()
+                        tempor = info.split()
+                        if len(tempor) == 2:
+                            if tempor[0].lower() in self.equivAlvoLatitude:
+                                cliente.send ('110', 'lat '+str(jr.getLatitude()), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                                c.close()
+                            elif tempor[0].lower() in self.equivAlvoLongitude:
+                                cliente.send ('110', 'long '+str(jr.getLongitude()), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                                c.close()
+                            elif tempor[0].lower() in self.equivAlvoAltura:
+                                cliente.send ('110', 'alt '+str(jr.getAltitude()), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                                c.close()
+                    elif (destinoFinal == jr.getIp()):
+                        print("balao mestre recebeu e era pra ele")
+                        tempor = info.split()
+                        if len(tempor) == 2:
+                            if tempor[0].lower() in self.equivAlvoLatitude:
+                                cliente.send ('110', 'lat '+str(jr.getLatitude()), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                                c.close()
+                            elif tempor[0].lower() in self.equivAlvoLongitude:
+                                cliente.send ('110', 'long '+str(jr.getLongitude()), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                                c.close()
+                            elif tempor[0].lower() in self.equivAlvoAltura:
+                                cliente.send ('110', 'alt '+str(jr.getAltitude()), jr.getMasterIp(), origem, destinoFinal) #ler location do json
+                                c.close()     
                     else:
-                        print ('balao mestre recebeu')
+                        print ('balao mestre recebeu mas nao era pra ele')
                         cliente.send ('120', info, destinoFinal, origem, destinoFinal)
                         c.close()
 #--------------------------------------------------------------------------------------------------------------
@@ -85,7 +104,7 @@ class Server():
                         possivel = True
                         temp = info.split()
                         temp[1] = int(temp[1])
-                        # se a informação tem dois campos e consegui dizer ao balão que vai atualizar a posição alvo
+                        # se a informacao tem dois campos e consegui dizer ao balao que vai atualizar a posicao alvo
                         if len(temp) == 2 and manipulador.atualizaCampoJson(self.NOME_ARQUIVO_FLAGS_SERVER,
                                                                             modificandoPosicionamentoAlvo=True):
                             # escreve nova(o) latitude
@@ -114,7 +133,7 @@ class Server():
                                                               desvioAltura=temp[1])
                             else:
                                 possivel = False
-                            # diz que terminou de atualizar a posição alvo
+                            # diz que terminou de atualizar a posicao alvo
                             manipulador.atualizaCampoJson(self.NOME_ARQUIVO_FLAGS_SERVER,
                                                           modificandoPosicionamentoAlvo=False)
                         else:
@@ -125,7 +144,49 @@ class Server():
                             cliente.send ('210', 'nao ok', jr.getMasterIp(), origem, destinoFinal)
                         c.close()
                     elif (destinoFinal == jr.getIp()): #pegar o propio ip
-                        cliente.send ('210', jr.getLatitude(), origem, origem, destinoFinal) #ler location do json
+                        print ("balao mestre recebeu e era pra ele")
+                        possivel = True
+                        temp = info.split()
+                        temp[1] = int(temp[1])
+                        # se a informacao tem dois campos e consegui dizer ao balao que vai atualizar a posicao alvo
+                        if len(temp) == 2 and manipulador.atualizaCampoJson(self.NOME_ARQUIVO_FLAGS_SERVER,
+                                                                            modificandoPosicionamentoAlvo=True):
+                            # escreve nova(o) latitude
+                            if temp[0].lower() in self.equivAlvoLatitude:
+                                manipulador.atualizaCampoJson(self.NOME_ARQUIVO_POSICAO_ALVO,
+                                                              alvoLatitude=temp[1])
+                            # escreve nova(o) longitude
+                            elif temp[0].lower() in self.equivAlvoLongitude:
+                                manipulador.atualizaCampoJson(self.NOME_ARQUIVO_POSICAO_ALVO,
+                                                              alvoLongitude=temp[1])
+                            # escreve nova(o) altura
+                            elif temp[0].lower() in self.equivAlvoAltura:
+                                manipulador.atualizaCampoJson(self.NOME_ARQUIVO_POSICAO_ALVO,
+                                                              alvoAltura=temp[1])
+                            # escreve nova(o) desvio latitude
+                            elif temp[0].lower() in self.equivDesvioLatitude:
+                                manipulador.atualizaCampoJson(self.NOME_ARQUIVO_POSICAO_ALVO,
+                                                              desvioLatitude=temp[1])
+                            # escreve nova(o) desvio longitude
+                            elif temp[0].lower() in self.equivDesvioLongitude:
+                                manipulador.atualizaCampoJson(self.NOME_ARQUIVO_POSICAO_ALVO,
+                                                              desvioLongitude=temp[1])
+                            # escreve nova(o) desvio altura
+                            elif temp[0].lower() in self.equivDesvioAltura:
+                                manipulador.atualizaCampoJson(self.NOME_ARQUIVO_POSICAO_ALVO,
+                                                              desvioAltura=temp[1])
+                            else:
+                                possivel = False
+                            # diz que terminou de atualizar a posicao alvo
+                            manipulador.atualizaCampoJson(self.NOME_ARQUIVO_FLAGS_SERVER,
+                                                          modificandoPosicionamentoAlvo=False)
+                        else:
+                            possivel = False
+                        if possivel:
+                            cliente.send ('210', 'ok', jr.getMasterIp(), origem, destinoFinal)
+                        else:
+                            cliente.send ('210', 'nao ok', jr.getMasterIp(), origem, destinoFinal)
+                        
                         c.close()
                     else:
                         print ('balao mestre recebeu')

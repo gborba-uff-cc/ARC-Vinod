@@ -15,9 +15,9 @@ class ManipuladorServerBalao:
         :param arq: nome do arquivo que sera aberto
         :param kwargs: campo=valor, ...
             -> Forma de uso:
-                campo é o parametro que corresponde ao campo que sera atualizado;
-                valor é o novo valor para o campo;
-        :return: (boolean) dizendo se a atualização do valor foi bem sucedida
+                campo e` o parametro que corresponde ao campo que sera atualizado;
+                valor e` o novo valor para o campo;
+        :return: (boolean) dizendo se a atualizacao do valor foi bem sucedida
         """
         d = jsonRead.carregaJson(arq)
         if d is not None:
